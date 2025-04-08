@@ -1,0 +1,19 @@
+inputSet:
+  name: testt
+  identifier: testt
+  orgIdentifier: default
+  projectIdentifier: Elastic
+  pipeline:
+    identifier: approval_Clone_Clone
+    stages:
+      - stage:
+          identifier: app
+          type: Custom
+          spec:
+            execution:
+              steps:
+                - step:
+                    identifier: HarnessApproval_1
+                    type: HarnessApproval
+                    spec:
+                      callbackId: tese
