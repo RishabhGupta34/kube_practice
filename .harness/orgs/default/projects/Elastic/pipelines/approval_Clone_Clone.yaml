@@ -4,7 +4,7 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: app
+        name: app1
         identifier: app
         description: ""
         type: Custom
@@ -16,8 +16,7 @@ pipeline:
                   name: HarnessApproval_1a
                   identifier: HarnessApproval_1
                   spec:
-                    approvalMessage: Please review the following information and approve
-                      the pipeline progression
+                    approvalMessage: Please review the following information and approve the pipeline progression
                     includePipelineExecutionHistory: true
                     isAutoRejectEnabled: false
                     approvers:
