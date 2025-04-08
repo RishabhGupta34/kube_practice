@@ -25,6 +25,7 @@ pipeline:
                       minimumCount: 1
                       disallowPipelineExecutor: false
                     approverInputs: []
+                    callbackId: <+input>
                   timeout: 1d
         tags: {}
         when:
