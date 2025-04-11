@@ -36,5 +36,5 @@ pipeline:
                 - AllErrors
               action:
                 type: Abort
-  identifier: approval_Clone_Clone
-  name: approval - Clone - Clone
+  identifier: approval_Clone_Clone_test
+  name: approval_Clone_Clone_test
