@@ -37,4 +37,4 @@ pipeline:
               action:
                 type: Abort
   identifier: approval_Clone_Clone
-  name: Approval t
+  name: Approval tr
