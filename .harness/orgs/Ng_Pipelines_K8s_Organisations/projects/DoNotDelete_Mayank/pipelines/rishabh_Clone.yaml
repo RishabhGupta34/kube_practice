@@ -1,0 +1,87 @@
+pipeline:
+  projectIdentifier: DoNotDelete_Mayank
+  orgIdentifier: Ng_Pipelines_K8s_Organisations
+  tags: {}
+  stages:
+    - stage:
+        name: shell
+        identifier: shell
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          export out="out"
+
+                          json_output="{\"service\":["
+
+                          # Generate 100 stack-branch combinations
+                          for i in $(seq 1 200); do
+                            stack="stack$i"
+                            # Random-looking branch name using modulo logic
+                            branch="branch$((i % 5 + 1))"  # branch1 to branch5
+                            json_output+="{\"stack\":\"$stack\",\"branch\":\"$branch\"},"
+                          done
+
+                          # Remove the trailing comma and close the array
+                          export json_output="${json_output%,}]}"
+
+                          # Export as a string variable
+                          echo "Exporting service output..."
+                          echo "service=$json_output"
+                          export service="$json_output"
+                    environmentVariables: []
+                    outputVariables:
+                      - name: out
+                        type: String
+                        value: out
+                      - name: service
+                        type: String
+                        value: service
+                      - name: json_output
+                        type: String
+                        value: json_output
+                  timeout: 10m
+        tags: {}
+    - stage:
+        name: poll
+        identifier: poll
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: |
+                          echo 1
+                          sleep 10
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
+        strategy:
+          matrix:
+            nodeName: <+matrix.service.stack>_<+matrix.service.branch>
+            service: "<+json.list(\"service\", <+pipeline.stages.shell.spec.execution.steps.ShellScript_1.output.outputVariables.json_output>)>"
+  identifier: rishabh_Clone
+  name: rishabh - Clone
