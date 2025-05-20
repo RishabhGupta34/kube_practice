@@ -1,0 +1,30 @@
+pipeline:
+  name: rish
+  identifier: rish
+  projectIdentifier: rishabh
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: c
+        identifier: c
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: cc
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
