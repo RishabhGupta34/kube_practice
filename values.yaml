@@ -1,4 +1,4 @@
 name: <+stage.variables.name>
-replicas: 1
+replicas: 1q
 
 image: <+artifact.image>
