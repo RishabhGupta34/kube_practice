@@ -1,0 +1,44 @@
+template:
+  name: cd
+  identifier: cd
+  versionLabel: v1
+  type: Stage
+  projectIdentifier: AmitTest2
+  orgIdentifier: default
+  tags: {}
+  spec:
+    type: Deployment
+    spec:
+      deploymentType: Kubernetes
+      environment:
+        environmentRef: e1
+        deployToAll: false
+        infrastructureDefinitions:
+          - identifier: i1
+      service:
+        serviceRef: s1
+      execution:
+        steps:
+          - stepGroup:
+              name: stpgrp
+              identifier: stpgrp
+              template:
+                templateRef: cdstpgrp
+                versionLabel: v1
+                gitBranch: main
+                templateInputs:
+                  steps:
+                    - step:
+                        identifier: rnustep
+                        template:
+                          templateInputs:
+                            type: Run
+                            spec:
+                              image: <+input>.default(harness/todolist-sample).selectOneFrom(library/nginx,harness/todolist-sample)
+        rollbackSteps: []
+    failureStrategies:
+      - onFailure:
+          errors:
+            - AllErrors
+          action:
+            type: StageRollback
